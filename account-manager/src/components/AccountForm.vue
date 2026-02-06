@@ -7,10 +7,17 @@ const store = useAccountsStore()
 
 <template>
   <div>
-    <div class="d-flex align-center justify-space-between mb-4">
-      <h2 class="text-h5">Учетные записи</h2>
-      <v-btn icon color="primary" size="small" @click="store.addAccount()">
-        <v-icon>mdi-plus</v-icon>
+    <div class="d-flex align-center mb-4">
+      <h2 class="text-h5 mr-2">Учетные записи</h2>
+      <v-btn
+        variant="outlined"
+        icon
+        rounded="lg"
+        size="32"
+        color="grey"
+        @click="store.addAccount()"
+      >
+        <span style="font-size: 20px; line-height: 1;">+</span>
       </v-btn>
     </div>
 
@@ -27,9 +34,10 @@ const store = useAccountsStore()
         <v-col cols="1"></v-col>
       </v-row>
 
-      <p class="text-caption text-grey mb-3">
-        Метка — текстовые метки через знак «;»
-      </p>
+      <div class="d-flex align-center text-caption mb-3 pa-2 rounded" style="background-color: #e3f2fd; color: #000;">
+        <v-icon size="small" class="mr-1" color="grey-darken-1">mdi-help-circle-outline</v-icon>
+        Для указания нескольких меток для одной пары логин/пароль используйте разделитель ;
+      </div>
 
       <AccountRow
         v-for="account in store.accounts"

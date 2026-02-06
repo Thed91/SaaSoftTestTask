@@ -16,6 +16,7 @@ const type = ref<AccountType>(props.account.type)
 const login = ref(props.account.login)
 const password = ref(props.account.password ?? '')
 
+const showPassword = ref(false)
 const loginError = ref(false)
 const passwordError = ref(false)
 
@@ -122,25 +123,25 @@ watch(
         v-if="type === 'Локальная'"
         v-model="password"
         placeholder="Пароль"
-        type="password"
+        :type="showPassword ? 'text' : 'password'"
         density="compact"
         variant="outlined"
         maxlength="100"
         :error="passwordError"
         hide-details="auto"
+        :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+        @click:append-inner="showPassword = !showPassword"
         @blur="saveIfValid()"
       />
     </v-col>
 
-    <v-col cols="1" class="text-center">
+    <v-col cols="1">
       <v-btn
-        icon
         variant="text"
-        color="red"
-        size="small"
+        size="default"
         @click="store.removeAccount(account.id)"
       >
-        <v-icon>mdi-delete</v-icon>
+        <v-icon size="23">mdi-delete</v-icon>
       </v-btn>
     </v-col>
   </v-row>
