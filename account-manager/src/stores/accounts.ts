@@ -18,8 +18,15 @@ function loadFromStorage(): AccountStoreData[] {
   }
 }
 
+function isValid(account: AccountStoreData): boolean {
+  if (!account.login.trim()) return false
+  if (account.type === 'Локальная' && !account.password?.trim()) return false
+  return true
+}
+
 function persistToStorage(accounts: AccountStoreData[]): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(accounts))
+  const valid = accounts.filter(isValid)
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(valid))
 }
 
 export const useAccountsStore = defineStore('accounts', () => {
@@ -33,7 +40,6 @@ export const useAccountsStore = defineStore('accounts', () => {
       login: '',
       password: null,
     })
-    persistToStorage(accounts.value)
   }
 
   function removeAccount(id: string): void {
